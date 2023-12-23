@@ -4,9 +4,11 @@ import Head from "next/head";
 import { api } from "~/utils/api";
 
 export default function Home() {
-  const hello = api.post.hello.useQuery({ text: "from tRPC" });
-
   const user = useUser();
+
+  const { data, error } = api.post.getAll.useQuery();
+  console.log("Data:", data);
+  console.log("Error:", error);
 
   return (
     <>
@@ -19,6 +21,9 @@ export default function Home() {
         <div className="flex flex-col items-center justify-center rounded bg-white p-2 text-center">
           {!user.isSignedIn && <SignInButton />}
           {!!user.isSignedIn && <SignOutButton />}
+        </div>
+        <div className="flex flex-col items-center justify-center rounded bg-white p-2 text-center">
+          {data?.map((post) => <div key={post.id}>{post.content}</div>)}
         </div>
       </main>
     </>
