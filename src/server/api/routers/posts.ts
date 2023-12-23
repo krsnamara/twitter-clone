@@ -1,7 +1,6 @@
+// posts.ts
 import type { User } from "@clerk/nextjs/api";
 import { clerkClient } from "@clerk/nextjs/server";
-import { z } from "zod";
-
 import { createTRPCRouter, publicProcedure } from "~/server/api/trpc";
 import { auth } from "@clerk/nextjs";
 

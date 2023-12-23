@@ -27,15 +27,21 @@ const CreatePostWizard = () => {
   );
 };
 
-type PostWithUser = RouterOutputs["post"]["getAll"][number];
+type PostWithUser = RouterOutputs["posts"]["getAll"][number];
+
 const PostView = (props: PostWithUser) => {
-  return <div>post</div>;
+  const { post, author } = props;
+  return (
+    <div key={post.id} className="border-b border-slate-400 p-8">
+      {post.content}
+    </div>
+  );
 };
 
 const Home: NextPage = () => {
   const user = useUser();
 
-  const { data, isLoading } = api.post.getAll.useQuery();
+  const { data, isLoading } = api.posts.getAll.useQuery();
 
   if (isLoading) return <div>Loading...</div>;
 
