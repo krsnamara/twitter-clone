@@ -39,7 +39,13 @@ const PostView = (props: PostWithUser) => {
         alt="profile image shown"
         className="h-16 w-16 cursor-pointer rounded-full"
       />
-      <span>{post.content}</span>
+      <div className="flex flex-col">
+        <div className="flex gap-1 text-slate-300">
+          <span>{`@${author.username}`}</span>
+          <span className="font-thin">{`∙ 1 hour ago`}</span>
+        </div>
+        <span>{post.content}</span>
+      </div>
     </div>
   );
 };
