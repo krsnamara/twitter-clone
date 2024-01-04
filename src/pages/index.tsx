@@ -8,7 +8,7 @@ import { api } from "~/utils/api";
 const CreatePostWizard = () => {
   const { user } = useUser();
 
-  console.log(user);
+  // console.log(user);
 
   if (!user) return null;
 
@@ -33,13 +33,13 @@ type PostWithUser = RouterOutputs["posts"]["getAll"][number];
 const PostView = (props: PostWithUser) => {
   const { post, author } = props;
   return (
-    <div key={post.id} className="flex border-b border-slate-400 p-8">
+    <div key={post.id} className="flex gap-3 border-b border-slate-400 p-4">
       <img
         src={author.imageUrl}
         alt="profile image shown"
         className="h-16 w-16 cursor-pointer rounded-full"
       />
-      {post.content}
+      <span>{post.content}</span>
     </div>
   );
 };
