@@ -1,4 +1,5 @@
 import { SignInButton, useUser } from "@clerk/nextjs";
+import { useState } from "react";
 import { type NextPage } from "next";
 import Image from "next/image";
 import Head from "next/head";
@@ -12,6 +13,10 @@ dayjs.extend(relativeTime);
 
 const CreatePostWizard = () => {
   const { user } = useUser();
+
+  const [input, setInput] = useState("");
+
+  const { mutate } = api.posts.create.useMutation();
 
   // console.log(user);
 
@@ -28,9 +33,12 @@ const CreatePostWizard = () => {
       />
       <input
         placeholder="type some emoji"
-        type="text"
         className="grow bg-transparent outline-none"
+        type="text"
+        value={input}
+        onChange={(e) => setInput(e.target.value)}
       />
+      <button onClick={() => mutate({ content: input })}>Post</button>
     </div>
   );
 };
@@ -70,7 +78,7 @@ const Feed = () => {
 
   return (
     <div className="flex flex-col">
-      {[...data]?.map((fullPost) => (
+      {data.map((fullPost) => (
         <PostView {...fullPost} key={fullPost.post.id} />
       ))}
     </div>
